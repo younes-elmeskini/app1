@@ -1,5 +1,5 @@
 import express from 'express'
-const route = express();
+const route = express.Router();
 
 
 route.use(express.json());
