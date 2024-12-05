@@ -1,10 +1,6 @@
 import express from 'express'
 const route = express.Router();
 
-
-route.use(express.json());
-
-
 route.get('/notes', (req, res) => {
    res.send("hello user")
 });
@@ -23,3 +19,5 @@ route.delete('/notes/:id', (req, res) => {
 route.put('/notes/:id', (req, res) =>{
     res.send("hello simane")
 });
+
+module.exports = route;
