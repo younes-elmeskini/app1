@@ -46,7 +46,7 @@ model categories {
 model tags {
   id  String   @id @default(uuid())
   name String  
-  note tagNotes[]  
+  tagnote tagNotes[]  
 }
 
 model tagNotes {
