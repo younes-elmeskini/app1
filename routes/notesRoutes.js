@@ -1,23 +1,7 @@
-import express from 'express'
-const route = express.Router();
+const express = require('express');
+const router = express.Router();
+const { addTags } = require('../controllers/NotesController');
 
-route.get('/notes', (req, res) => {
-   res.send("hello user")
-});
+router.post('/tags', addTags);
 
-route.get('/notes/:id',(req,res) =>{
-    res.send("hello user one note")
-})
-
-route.post('/notes',(req,res)=>{
-    res.send("hello user add note")
-})
-
-route.delete('/notes/:id', (req, res) => {
-    res.send("hello user delete note")
-});
-route.put('/notes/:id', (req, res) =>{
-    res.send("hello simane")
-});
-
-module.exports = route;
+module.exports = router;

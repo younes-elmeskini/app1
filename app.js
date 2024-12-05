@@ -1,13 +1,18 @@
-import express from 'express'
-require('dotenv').config();
+const  express = require('express');
+const dotenv = require('dotenv');
+
+// Load environment variables from a .env file
+dotenv.config();
+
+const app = express();
+
+const  port = process.env.PORT || 7856;
+
 app.use(express.json());
 
-import notesRouter from "routes/notes";
-app.use("/notes", notesRouter);
+app.use('/notes', require('./routes/NotesRoutes'));
 
-// Start the server and listen on a specified port
-const PORT = process.env.PORT || 3000; // Use environment variable or default to 3000
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
-
