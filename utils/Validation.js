@@ -11,9 +11,9 @@ const validationandHandlerrors = (req, res, next) => {
 
 const validation ={
     validateTitle :[
-    check('name').not().isEmpty().withMessage('Name is required')
-    .isString().withMessage("name must be a string"),
-]
+        check('name').not().isEmpty().withMessage('Name is required')
+        .isString().withMessage("name must be a string"),
+    ]
 }
 
 module.exports = {
