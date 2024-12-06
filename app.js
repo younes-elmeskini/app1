@@ -9,6 +9,8 @@ app.use(express.json());
 
 app.use('/notes', require('./routes/NotesRoutes'));
 
+app.use('/users', require('./routes/UserRoutes'));
+
 
 
 
