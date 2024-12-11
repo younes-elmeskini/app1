@@ -46,7 +46,7 @@ model categories {
 model tags {
   id  String   @id @default(uuid())
   name String  
-  tagnote tagNotes[]  
+  tagNote tagNotes[]  
 }
 
 model tagNotes {
@@ -55,5 +55,4 @@ model tagNotes {
   tagId     String
   note      notes    @relation(fields: [noteId], references: [id])
   tag       tags     @relation(fields: [tagId], references: [id])
-  
 }

@@ -1,5 +1,36 @@
 const prisma = require('../utils/PrismaClients');
 
+// notes
+async function addNotes(req, res) {
+    // Vérifiez si l'utilisateur est authentifié
+    if (!req.session || !req.session.userId) {
+        return res.status(401).json({ message: 'User  is not authenticated' });
+    }
+
+    try {
+        const { name, content, categoryId, tagNotes } = req.body;
+
+        // Vérifiez que les données nécessaires sont présentes
+        if (!name || !content || !categoryId) {
+            return res.status(400).json({ message: 'Name, content, and categoryId are required' });
+        }
+
+        const note = await prisma.notes.create({
+            data: {
+                name,
+                content,
+                categoryId,
+                tagNotes,
+                userId: req.session.userId
+            }
+        });
+
+        res.status(200).json({ message: "Note added successfully", note });
+    } catch (error) {
+        res.status(500).json({ message: "Error adding note", error: error.message });
+    }
+}
+
 // tags
 async function addTags(req, res) {
 
@@ -73,7 +104,6 @@ async function deleteTagById(req, res) {
         res.status(500).json({ message: "Error deleting tag" }); // Handle any other errors
     }
 }
-
 
 // categories
 async function addCategory(req, res) {
@@ -159,4 +189,5 @@ module.exports = {
     getCategoryById,
     updateCategoryById,
     deleteCategoryById,
+    addNotes
 }
