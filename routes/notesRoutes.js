@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const { addTags, getTags, getTagById ,updateTagById ,deleteTagById,
      addCategory, getCategories, getCategoryById, updateCategoryById, deleteCategoryById,
-    addNotes} = require('../controllers/NotesController');
+    addNotes, getNotes } = require('../controllers/NotesController');
 const { validationandHandlerrors ,validation } = require('../utils/Validation');
 const { isAuthenticated } = require('../utils/Auth');
 const { body } = require('express-validator');
 
 router.post('/notes', isAuthenticated, addNotes);
+
+router.get('/notes', isAuthenticated, getNotes);
 
 router.post('/tags',validation.validateName, validationandHandlerrors ,addTags);
 

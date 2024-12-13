@@ -6,12 +6,11 @@ async function addNotes(req, res) {
     if (!req.session || !req.session.userId) {
         return res.status(401).json({ message: 'User  is not authenticated' });
     }
-
+    // Récupère les données du formulaire
     try {
         const { name, content, categoryId, tagNotes } = req.body;
-
         // Vérifiez que les données nécessaires sont présentes
-        if (!name || !content || !categoryId) {
+        if (!name ) {
             return res.status(400).json({ message: 'Name, content, and categoryId are required' });
         }
 
@@ -24,10 +23,20 @@ async function addNotes(req, res) {
                 userId: req.session.userId
             }
         });
-
         res.status(200).json({ message: "Note added successfully", note });
     } catch (error) {
         res.status(500).json({ message: "Error adding note", error: error.message });
+    }
+}
+
+async function getNotes(req, res) {
+    try {
+        const notes = await prisma.notes.findMany({
+            where: { userId: req.session.userId },
+        });
+        res.status(200).json(notes);
+    } catch (error) {
+        res.status(500).json({ message: "Error retrieving notes" });
     }
 }
 
@@ -178,6 +187,7 @@ async function deleteCategoryById(req, res) {
         res.status(500).json({ message: "Error deleting tag" }); // Handle any other errors
     }
 }
+
 module.exports = {
     addTags,
     getTags,
@@ -189,5 +199,6 @@ module.exports = {
     getCategoryById,
     updateCategoryById,
     deleteCategoryById,
-    addNotes
+    addNotes,
+    getNotes,
 }
